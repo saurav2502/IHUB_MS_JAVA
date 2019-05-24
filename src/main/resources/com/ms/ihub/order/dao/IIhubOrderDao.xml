@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ms.ihub.order.dao.IIhubOrderDao">
+    <select id="selectUsers" resultType="com.ms.ihub.order.vo.IhubOrderVO">
+        SELECT
+            FIRST_NAME as firstName,
+            LAST_NAME as lastName,
+            EMAIL as email,
+            PHONE_NUMBER as phoneNumber,
+            CITY as city
+        FROM USER
+        ORDER BY EMAIL
+    </select>
+    <resultMap id="createorderMap" type="com.ms.ihub.order.vo.IhubOrderVO">
+        <id property="orderId" column="order_id"></id>
+        <result property="ioaId" column="ioa_id"></result>
+        <result property="deletedFlag" column="deleted_flag"></result>
+        <result property="createdBy" column="createdBy"></result>
+        <result property="creationStartDate" column="order_date"></result>
+        <result property="creationEndDate" column="deliver_date"></result>
+    </resultMap>
+    <insert id="createNewOrder" parameterType="com.ms.ihub.order.vo.IhubOrderVO" useGeneratedKeys="true" keyProperty="ihubOrderVO.orderId" keyColumn="order_id">
+        INSERT INTO examples.`order` (
+        order_id,
+        ioa_id,
+        order_date,
+        last_update,
+        order_by
+        ) values (
+            #{ihubOrderVO.orderId},
+            #{ihubOrderVO.ioaId},
+            #{ihubOrderVO.creationStartDate, jdbcType=VARCHAR},
+            #{ihubOrderVO.creationEndDate, jdbcType=VARCHAR},
+            #{ihubOrderVO.createdBy}
+        )
+    </insert>
+    <select id="findOrderByDomain" resultMap="createorderMap">
+        select * from examples.`order` e where find_in_set(e.serviceDomain,#{vo.serviceDomain, jdbcType=VARCHAR})
+    </select>
+    <select id="findOrderByIoaId" resultMap="createorderMap">
+        select * from examples.`order` e
+        where e.ioa_id = #{ioaId}
+    </select>
+</mapper>
