@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface IIhubOrderDao {
@@ -13,4 +14,6 @@ public interface IIhubOrderDao {
     List<IhubOrderVO> findOrderByDomain(@Param("vo") IhubOrderVO vo);
 
     IhubOrderVO findOrderByIoaId(@Param("ioaId") Long ioaId);
+
+    List<Map<String, String>> findlookUpData(@Param("code") int classifyCode);
 }

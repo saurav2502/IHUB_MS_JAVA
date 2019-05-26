@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IhubOrderMangeServiceImpl implements IIhubOrderManageService {
@@ -30,5 +31,25 @@ public class IhubOrderMangeServiceImpl implements IIhubOrderManageService {
     @Override
     public IhubOrderVO findOrderByIoaId(Long ioaId) {
         return orderDao.findOrderByIoaId(ioaId);
+    }
+
+    @Override
+    public List<Map<String, String>> findlookUpData(int classifyCode) {
+        final String succ = "Success";
+        final String code = "0";
+        final String error = "Error";
+        final String errcode = "1";
+        List<Map<String, String>> map = null;
+        try{
+            map = orderDao.findlookUpData(classifyCode);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+//        for (Map<String, String> ite: map){
+//            for (Map.Entry<String, String> finalmap : ite.entrySet()){
+//                finalmap.setValue(succ);
+//            }
+//        }
+        return map;
     }
 }

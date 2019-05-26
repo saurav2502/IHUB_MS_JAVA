@@ -43,4 +43,10 @@
         select * from examples.`order` e
         where e.ioa_id = #{ioaId}
     </select>
+    <select id="findlookUpData" resultType="map">
+        select t.item_code, t.item_name
+        from ihub.tpl_lookup_item_t t
+        where t.classify_code =
+              #{code, jdbcType= NUMERIC}
+    </select>
 </mapper>
