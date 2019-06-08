@@ -49,4 +49,29 @@
         where t.classify_code =
               #{code, jdbcType= NUMERIC}
     </select>
+    <insert id="createihubOrder" parameterType="com.ms.ihub.order.vo.IhubOrderVO">
+        <selectKey order="BEFORE" keyProperty="orderId" resultType="long">
+            select ihub.ihub_nextval('ihub_order_head_t_s') as orderId from dual;
+        </selectKey>
+        insert into ihub.ihub_order_head_t
+        (order_header_id,
+         ioad_id,
+         gsc_id,
+         status,
+         created_by,
+         last_updated_by,
+         last_update_date
+        )
+        values
+        (
+            #{orderId, jdbcType= NUMERIC},
+            #{ioaId, jdbcType= NUMERIC},
+            '0',
+            #{status, jdbcType= VARCHAR},
+            #{createdBy, jdbcType= NUMERIC},
+            #{createdBy, jdbcType= NUMERIC},
+            sysdate()
+
+        )
+    </insert>
 </mapper>

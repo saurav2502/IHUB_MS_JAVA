@@ -14,4 +14,6 @@ public interface IIhubOrderManageService {
     IhubOrderVO findOrderByIoaId(Long ioaId);
 
     List<Map<String, String>> findlookUpData(int classifyCode);
+
+    Map<String, String> createihubOrder(IhubOrderVO orderVO)throws IhubException;
 }

@@ -16,4 +16,6 @@ public interface IIhubOrderDao {
     IhubOrderVO findOrderByIoaId(@Param("ioaId") Long ioaId);
 
     List<Map<String, String>> findlookUpData(@Param("code") int classifyCode);
+
+    int createihubOrder(IhubOrderVO orderVO);
 }
